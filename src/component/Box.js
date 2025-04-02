@@ -1,7 +1,6 @@
 import React from "react";
 import cuteCat from "../image/cute-cat.png";
 import previewResult from "../image/whos.png";
-import tie from "../image/tie.png";
 import win from "../image/win.png";
 import lose from "../image/lose.png";
 
@@ -30,13 +29,15 @@ const Box = (props) => {
 
   return (
     <div className="box">
-      <div className="title ">
-        <img className="title-img " src={props && props.title.user.img} />
+      <div>
+        <img className="title-img" src={props && props.title.user.img} />
       </div>
-      <img className="item-img " src={props.item?.img || cuteCat} />
-      <h2>
-        <img width={250} height={100} src={result || previewResult} />
-      </h2>
+      <div className="result-box ">
+        <img className="item-img" src={props.item?.img || cuteCat} />
+        <h2>
+          <img className="result-img" src={result || previewResult} />
+        </h2>
+      </div>
     </div>
   );
 };

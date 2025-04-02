@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Box from "./component/Box";
 import rockImg from "../src/image/txt-rock.png";
@@ -9,6 +9,7 @@ import computerTitle from "../src/image/computer.png";
 import tie from "../src/image/tie.png";
 import win from "../src/image/win.png";
 import lose from "../src/image/lose.png";
+import resetImg from "../src/image/reset.png";
 
 const choice = {
   rock: {
@@ -57,6 +58,21 @@ function App() {
   const [userSelect, setUserSelect] = useState(null);
   const [computerSelect, setComputerSelect] = useState(null);
   const [result, setResult] = useState("");
+  const [winPoint, setWinPoint] = useState(0);
+  const [losePoint, setLosePoint] = useState(0);
+
+  useEffect(() => {
+    if (result.case === "win") setWinPoint((prev) => prev + 1);
+    else if (result.case === "lose") setLosePoint((prev) => prev + 1);
+  }, [result]);
+
+  const reset = () => {
+    setWinPoint(0);
+    setLosePoint(0);
+    setUserSelect(null);
+    setComputerSelect(null);
+    setResult("");
+  };
 
   const play = (userChoice) => {
     console.log("선택됨", userChoice);
@@ -87,6 +103,12 @@ function App() {
     // 유저가 바위일때 가위면 이김 보면 짐
     // 유저가 보일때 바위면 이김 가위면 짐
   };
+  const getComputerResult = (result) => {
+    let userResult = result.case;
+    if (userResult === "win") return "lose";
+    if (userResult === "lose") return "win";
+    return "tie";
+  };
 
   const randomChoice = () => {
     let itemArray = Object.keys(choice); // 객체의 키값만 뽑아서 어레이로 만들어주는 함수
@@ -100,21 +122,28 @@ function App() {
 
   return (
     <div className="body ">
-      <div className="counter-area borders">
-        <div>0</div>
-        <div>:</div>
-        <div>0</div>
+      <div className="nav">
+        <div className="counter-area">
+          <div className={result.case}>🧒🏻 {winPoint}</div>
+          <div>:</div>
+          <div className={result ? getComputerResult(result) : ""}>
+            {losePoint} 🖥️
+          </div>
+        </div>
+        <div className="reset-btn-area">
+          <img onClick={() => reset()} className="reset-img" src={resetImg} />
+        </div>
       </div>
-      <div className="main borders">
+      <div className="main">
         <Box title={player1} item={userSelect} result={result} />
         <Box title={player2} item={computerSelect} result={result} />
       </div>
-      <div className="main">
-        <button onClick={() => play("scissors")}>가위</button>
+      <div className="button-area">
+        <button onClick={() => play("scissors")}>✌🏻</button>
 
-        <button onClick={() => play("rock")}>바위</button>
+        <button onClick={() => play("rock")}>✊🏻</button>
 
-        <button onClick={() => play("paper")}>보</button>
+        <button onClick={() => play("paper")}>🖐🏻</button>
       </div>
     </div>
   );
