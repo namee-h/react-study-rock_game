@@ -75,7 +75,7 @@ function App() {
   };
 
   const play = (userChoice) => {
-    console.log("선택됨", userChoice);
+    // console.log("선택됨", userChoice);
     setUserSelect(choice[userChoice]);
     let computerChoice = randomChoice();
     setComputerSelect(computerChoice);
@@ -85,7 +85,7 @@ function App() {
   };
 
   const judgement = (user, computer) => {
-    console.log("user", user, "computer", computer);
+    // console.log("user", user, "computer", computer);
     if (user.name === computer.name) {
       return outcome.tie;
     } else if (user.name === "Scissors")

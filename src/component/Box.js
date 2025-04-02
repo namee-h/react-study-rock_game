@@ -5,7 +5,7 @@ import win from "../image/win.png";
 import lose from "../image/lose.png";
 
 const Box = (props) => {
-  console.log("props", props);
+  // console.log("props", props);
   let result;
 
   if (
